@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi Sky blue</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Nunito:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --sky-top: #060b19;
+            --sky-mid1: #101c38;
+            --sky-mid2: #23457a;
+            --sky-mid3: #4b80b7;
+            --sky-bottom: #92d3f5;
+            --text-light: #f8f9fa;
+            --glass-bg: rgba(20, 30, 50, 0.35);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Caveat', cursive; /* Fuente romántica para el texto */
+            background-color: var(--sky-top);
+            color: var(--text-light);
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #scenery {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, 
+                var(--sky-top) 0%, 
+                var(--sky-mid1) 25%, 
+                var(--sky-mid2) 55%, 
+                var(--sky-mid3) 80%, 
+                var(--sky-bottom) 100%);
+            z-index: 1;
+        }
+
+        .field {
+            position: absolute;
+            bottom: -5vh;
+            width: 150vw;
+            height: 25vh;
+            left: -25vw;
+            background: linear-gradient(to bottom, #0c1a14, #050a08);
+            border-top-left-radius: 50% 100%;
+            border-top-right-radius: 50% 100%;
+            z-index: 5;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.5);
+        }
+
+        .clouds-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 50px;
+            filter: blur(15px);
+            animation: floatCloud linear infinite;
+        }
+
+        .c1 { width: 350px; height: 80px; top: 25%; left: -400px; animation-duration: 65s; animation-delay: 0s; }
+        .c2 { width: 450px; height: 100px; top: 55%; left: -500px; animation-duration: 85s; animation-delay: -15s; }
+        .c3 { width: 280px; height: 60px; top: 15%; left: -300px; animation-duration: 55s; animation-delay: -30s; }
+
+        @keyframes floatCloud {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(100vw + 600px)); }
+        }
+
+        #stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 8px 1px rgba(255,255,255,0.5);
+            animation: twinkle infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .comet-container {
+            position: absolute;
+            top: -15%;
+            right: -10%;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            transform: rotate(-35deg);
+            pointer-events: none;
+        }
+
+        .comet {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            width: 5px;
+            height: 180px;
+            background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(135, 206, 235, 0.6), transparent);
+            border-radius: 50%;
+            box-shadow: 0 0 25px 6px rgba(255, 255, 255, 0.7), 0 0 50px 12px rgba(135, 206, 235, 0.5);
+            animation: cometFall 14s infinite cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .comet-fragment {
+            position: absolute;
+            top: 20%;
+            left: 51.5%;
+            width: 3px;
+            height: 120px;
+            background: linear-gradient(to top, rgba(255, 220, 220, 1), rgba(255, 105, 180, 0.6), transparent);
+            border-radius: 50%;
+            box-shadow: 0 0 15px 4px rgba(255, 150, 150, 0.6);
+            animation: cometFallFragment 14s infinite cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            animation-delay: 0.15s;
+        }
+
+        @keyframes cometFall {
+            0% { transform: translateY(-50vh) scale(0.8); opacity: 0; }
+            10% { opacity: 1; }
+            45% { transform: translateY(120vh) scale(1.2); opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes cometFallFragment {
+            0% { transform: translate(0, -50vh) scale(0.8); opacity: 0; }
+            10% { opacity: 1; }
+            45% { transform: translate(4vw, 120vh) scale(1.1); opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        .ui-layer {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .intro-screen {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1.5s ease, transform 1.5s ease;
+        }
+
+        .btn-start {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            padding: 16px 40px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+            letter-spacing: 1px;
+        }
+
+        .btn-start:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.08);
+            box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.3), inset 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px 50px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255,255,255,0.05);
+            opacity: 0;
+            display: none;
+            transform: translateY(30px);
+            transition: opacity 2s ease, transform 2s ease;
+        }
+
+        .glass-card::-webkit-scrollbar { width: 6px; }
+        .glass-card::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.3); border-radius: 10px; }
+
+        .message-line {
+            font-size: 1.8rem;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            text-align: justify;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+            letter-spacing: 1px;
+        }
+
+        .signature {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-top: 35px;
+            text-align: right;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+            color: #b3e5fc;
+        }
+
+        .message-line.visible, .signature.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 600px) {
+            .glass-card { padding: 30px 20px; }
+            .message-line { font-size: 1.5rem; line-height: 1.4; margin-bottom: 20px; }
+            .signature { font-size: 1.9rem; }
+            .btn-start { font-size: 1.2rem; padding: 14px 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Etiqueta de audio oculta -->
+    <!-- Coloca un archivo llamado "musica.mp3" en la misma carpeta que este archivo HTML -->
+    <audio id="bg-music" src="musica.mp3" loop></audio>
+
+    <div id="scenery">
+        <div id="stars"></div>
+        
+        <div class="clouds-container">
+            <div class="cloud c1"></div>
+            <div class="cloud c2"></div>
+            <div class="cloud c3"></div>
+        </div>
+
+        <div class="comet-container">
+            <div class="comet"></div>
+            <div class="comet-fragment"></div>
+        </div>
+
+        <div class="field"></div>
+    </div>
+
+    <div class="ui-layer">
+        <!-- Botón inicial -->
+        <div class="intro-screen" id="intro">
+            <button class="btn-start" id="start-btn">Para mi Sky blue ✨</button>
+        </div>
+
+        <!-- Tarjeta de cristal con el texto -->
+        <div class="glass-card" id="card">
+            <p class="message-line message-elem">
+                Mi Sky blue, hoy en el Día del Niño, quería recordarte algo muy especial. Sé que eres una mujer increíble, sensata, llena de virtudes, que te siento tan niña y a la vez tan mujer; que se permite ser sensible emocionalmente, que tiene una empatía profunda y que lidia con una y mil cosas y las resuelve.
+            </p>
+            
+            <p class="message-line message-elem">
+                Quiero que sepas que no busco a alguien perfecta, solo quiero ver la mejor versión de ti siempre. Quiero hacerte reír, cuidarte, mimarte y expresar todo el gran amor que siento por ti; ser ese lugar donde tu niña interior pueda reír sin preocupaciones, donde te sientas consentida y donde nunca pierdas esa ternura, dulzura y sencillez que me enamora.
+            </p>
+            
+            <p class="message-line message-elem">
+                Lo único que sé es que sueño con abrazarte y no soltarte más. Sueño con mirarte a los ojos y perderme en ellos, no dejaría de mirarte y admirarte ni un solo segundo. 
+            </p>
+            
+            <p class="message-line message-elem" style="font-weight: 700; text-align: center; margin-top: 30px; font-size: 2rem;">
+                Feliz día a mi niña hermosa.
+            </p>
+            
+            <div class="signature message-elem">
+                Te amo, mi Celeste
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const starsContainer = document.getElementById('stars');
+            const numStars = 150; 
+
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const y = Math.random() * 85; // Hasta 85vh
+                const x = Math.random() * 100;
+                star.style.top = y + 'vh';
+                star.style.left = x + 'vw';
+                
+                const size = Math.random() * 2.5 + 0.5;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                
+                const duration = Math.random() * 3 + 2; 
+                star.style.animationDuration = duration + 's';
+                star.style.animationDelay = (Math.random() * 2) + 's';
+                
+                starsContainer.appendChild(star);
+            }
+
+            const startBtn = document.getElementById('start-btn');
+            const introScreen = document.getElementById('intro');
+            const card = document.getElementById('card');
+            const messageElements = document.querySelectorAll('.message-elem');
+            const bgMusic = document.getElementById('bg-music');
+
+            startBtn.addEventListener('click', () => {
+                
+                // Intentar reproducir la música
+                // Utilizamos try/catch por si el archivo musica.mp3 no se encuentra,
+                // así evitamos que la animación se rompa.
+                try {
+                    bgMusic.volume = 0.5; // Volumen al 50% para que sea agradable
+                    bgMusic.play();
+                } catch (e) {
+                    console.log("No se pudo reproducir la música. Verifica el archivo musica.mp3");
+                }
+
+                // Desvanecer el botón
+                introScreen.style.opacity = '0';
+                introScreen.style.transform = 'scale(0.9)';
+                
+                setTimeout(() => {
+                    introScreen.style.display = 'none';
+                    
+                    // Mostrar la tarjeta
+                    card.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                        
+                        // Cascada de texto con tiempos dramáticos
+                        let delay = 1000; 
+                        
+                        messageElements.forEach((elem, index) => {
+                            setTimeout(() => {
+                                elem.classList.add('visible');
+                            }, delay);
+                            
+                            // Pausas dramáticas de 4 a 5 segundos entre párrafos
+                            // para permitirle leer antes de que aparezca el siguiente.
+                            if(index === messageElements.length - 2) delay += 3000; // Antes de la firma
+                            else delay += 4500; 
+                        });
+                        
+                    }, 100);
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>
